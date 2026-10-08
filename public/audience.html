@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>KBC Audience Voting Pad</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Custom KBC Theme -->
+  <link rel="stylesheet" href="/css/kbc-theme.css">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="kbc-bg-radial min-h-screen flex flex-col justify-between text-white select-none overscroll-none">
+
+  <!-- Studio Top Banner -->
+  <header class="w-full px-5 py-3 border-b border-yellow-600/30 bg-black/50 backdrop-blur-md flex items-center justify-between">
+    <div class="flex items-center space-x-3">
+      <div class="w-9 h-9 rounded-full border border-yellow-400 bg-blue-950 flex items-center justify-center shadow-md shadow-yellow-500/20">
+        <i class="fa-solid fa-users text-yellow-400 text-sm"></i>
+      </div>
+      <div>
+        <div class="text-[10px] tracking-widest uppercase text-yellow-300 font-bold">KBC LIFELINE</div>
+        <h1 class="text-sm font-bold tracking-wider gold-gradient-text uppercase font-orbitron">
+          AUDIENCE PAD
+        </h1>
+      </div>
+    </div>
+
+    <!-- Live Status Pill -->
+    <div id="connPill" class="flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-950/80 border border-yellow-500/30 text-xs">
+      <span id="connDot" class="w-2 h-2 rounded-full bg-emerald-400"></span>
+      <span id="connText" class="font-mono text-[11px] text-emerald-300">CONNECTED</span>
+    </div>
+  </header>
+
+  <!-- Interactive Voting Arena Container -->
+  <main class="flex-1 flex flex-col justify-center items-center px-4 py-3 w-full max-w-md mx-auto relative z-10">
+
+    <!-- ================= 1. WAITING STATE VIEW ================= -->
+    <div id="waitingView" class="w-full text-center flex flex-col items-center justify-center py-6 transition-all duration-300">
+      <!-- Pulsing Lifeline Radar Icon -->
+      <div class="relative w-28 h-28 flex items-center justify-center mb-5">
+        <div class="absolute inset-0 rounded-full border-2 border-yellow-500/20 animate-ping"></div>
+        <div class="absolute inset-2 rounded-full border border-yellow-400/30 animate-pulse"></div>
+        <div class="w-20 h-20 rounded-full bg-gradient-to-b from-blue-900 to-indigo-950 border-2 border-yellow-400 flex items-center justify-center shadow-xl shadow-yellow-500/20">
+          <i class="fa-solid fa-hourglass-half text-yellow-400 text-2xl animate-bounce"></i>
+        </div>
+      </div>
+
+      <h2 class="text-xl font-black font-orbitron gold-gradient-text uppercase mb-2">
+        STANDING BY
+      </h2>
+
+      <!-- Upcoming Question Preview Box -->
+      <div class="w-full bg-slate-950/80 border border-yellow-500/40 rounded-xl p-3.5 my-3 shadow-lg text-left">
+        <div class="text-[10px] text-yellow-400 font-mono uppercase tracking-wider font-bold mb-1 flex items-center">
+          <i class="fa-solid fa-circle-question mr-1.5"></i> UPCOMING QUESTION
+        </div>
+        <div id="waitingQuestionText" class="text-sm font-semibold text-white leading-relaxed">
+          Which Indian state has the longest mainland coastline?
+        </div>
+      </div>
+
+      <p class="text-xs text-slate-300 px-4 font-medium leading-relaxed mb-4">
+        The host is getting ready. When voting opens, the 4 option buttons will activate automatically!
+      </p>
+
+      <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-blue-950/60 border border-yellow-500/30 text-xs text-yellow-200">
+        <i class="fa-solid fa-signal text-yellow-400"></i>
+        <span>Ready for host signal...</span>
+      </div>
+    </div>
+
+    <!-- ================= 2. ACTIVE VOTING VIEW ================= -->
+    <div id="activeView" class="w-full flex flex-col items-center transition-all duration-300 hidden">
+      <!-- Active Question Box -->
+      <div class="w-full bg-gradient-to-r from-blue-950/90 via-slate-900/90 to-blue-950/90 border-2 border-yellow-500/60 rounded-xl p-3.5 mb-3.5 shadow-xl text-left">
+        <div class="flex items-center justify-between mb-1">
+          <div class="inline-flex items-center space-x-1.5 text-[10px] text-emerald-400 font-mono uppercase tracking-wider font-bold">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+            <span>POLL IS LIVE</span>
+          </div>
+          <span class="text-[10px] text-yellow-400 font-mono">TAP TO VOTE</span>
+        </div>
+        <div id="activeQuestionText" class="text-sm md:text-base font-bold text-white leading-snug">
+          Which Indian state has the longest mainland coastline?
+        </div>
+      </div>
+
+      <!-- 4 Large Mobile Option Buttons -->
+      <div class="w-full space-y-2.5">
+
+        <!-- Button A -->
+        <button data-option="A" class="vote-btn touch-btn-kbc w-full p-3.5 rounded-2xl flex items-center justify-between group active:scale-[0.98]">
+          <div class="flex items-center space-x-3.5">
+            <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-yellow-500 to-amber-700 flex items-center justify-center border border-yellow-300 shadow-md flex-shrink-0">
+              <span class="font-orbitron font-black text-xl text-slate-950">A</span>
+            </div>
+            <div class="text-left">
+              <div class="text-[10px] text-yellow-300/80 font-bold uppercase tracking-wider font-mono">OPTION A</div>
+              <div id="audienceOptText-A" class="text-base font-bold text-white tracking-wide leading-tight">Gujarat</div>
+            </div>
+          </div>
+          <div class="w-8 h-8 rounded-full border border-yellow-500/30 bg-blue-950/60 flex items-center justify-center text-yellow-400 group-hover:border-yellow-400 group-hover:bg-yellow-500/20 transition flex-shrink-0">
+            <i class="fa-solid fa-chevron-right text-xs"></i>
+          </div>
+        </button>
+
+        <!-- Button B -->
+        <button data-option="B" class="vote-btn touch-btn-kbc w-full p-3.5 rounded-2xl flex items-center justify-between group active:scale-[0.98]">
+          <div class="flex items-center space-x-3.5">
+            <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-yellow-500 to-amber-700 flex items-center justify-center border border-yellow-300 shadow-md flex-shrink-0">
+              <span class="font-orbitron font-black text-xl text-slate-950">B</span>
+            </div>
+            <div class="text-left">
+              <div class="text-[10px] text-yellow-300/80 font-bold uppercase tracking-wider font-mono">OPTION B</div>
+              <div id="audienceOptText-B" class="text-base font-bold text-white tracking-wide leading-tight">Maharashtra</div>
+            </div>
+          </div>
+          <div class="w-8 h-8 rounded-full border border-yellow-500/30 bg-blue-950/60 flex items-center justify-center text-yellow-400 group-hover:border-yellow-400 group-hover:bg-yellow-500/20 transition flex-shrink-0">
+            <i class="fa-solid fa-chevron-right text-xs"></i>
+          </div>
+        </button>
+
+        <!-- Button C -->
+        <button data-option="C" class="vote-btn touch-btn-kbc w-full p-3.5 rounded-2xl flex items-center justify-between group active:scale-[0.98]">
+          <div class="flex items-center space-x-3.5">
+            <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-yellow-500 to-amber-700 flex items-center justify-center border border-yellow-300 shadow-md flex-shrink-0">
+              <span class="font-orbitron font-black text-xl text-slate-950">C</span>
+            </div>
+            <div class="text-left">
+              <div class="text-[10px] text-yellow-300/80 font-bold uppercase tracking-wider font-mono">OPTION C</div>
+              <div id="audienceOptText-C" class="text-base font-bold text-white tracking-wide leading-tight">Tamil Nadu</div>
+            </div>
+          </div>
+          <div class="w-8 h-8 rounded-full border border-yellow-500/30 bg-blue-950/60 flex items-center justify-center text-yellow-400 group-hover:border-yellow-400 group-hover:bg-yellow-500/20 transition flex-shrink-0">
+            <i class="fa-solid fa-chevron-right text-xs"></i>
+          </div>
+        </button>
+
+        <!-- Button D -->
+        <button data-option="D" class="vote-btn touch-btn-kbc w-full p-3.5 rounded-2xl flex items-center justify-between group active:scale-[0.98]">
+          <div class="flex items-center space-x-3.5">
+            <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-yellow-500 to-amber-700 flex items-center justify-center border border-yellow-300 shadow-md flex-shrink-0">
+              <span class="font-orbitron font-black text-xl text-slate-950">D</span>
+            </div>
+            <div class="text-left">
+              <div class="text-[10px] text-yellow-300/80 font-bold uppercase tracking-wider font-mono">OPTION D</div>
+              <div id="audienceOptText-D" class="text-base font-bold text-white tracking-wide leading-tight">Andhra Pradesh</div>
+            </div>
+          </div>
+          <div class="w-8 h-8 rounded-full border border-yellow-500/30 bg-blue-950/60 flex items-center justify-center text-yellow-400 group-hover:border-yellow-400 group-hover:bg-yellow-500/20 transition flex-shrink-0">
+            <i class="fa-solid fa-chevron-right text-xs"></i>
+          </div>
+        </button>
+
+      </div>
+    </div>
+
+    <!-- ================= 3. VOTED / LOCKED STATE VIEW ================= -->
+    <div id="votedView" class="w-full text-center flex flex-col items-center justify-center py-6 transition-all duration-300 hidden">
+      <!-- Locked Badge -->
+      <div class="w-20 h-20 rounded-full bg-gradient-to-br from-emerald-600 to-green-900 border-2 border-emerald-400 flex items-center justify-center shadow-2xl shadow-green-600/40 mb-3 animate-pulse">
+        <i class="fa-solid fa-lock text-emerald-200 text-2xl"></i>
+      </div>
+
+      <div class="inline-block px-3 py-1 rounded-full bg-emerald-950/90 border border-emerald-400 text-emerald-300 text-xs font-bold tracking-widest uppercase mb-1">
+        LOCK KIYA JAYE! ✓
+      </div>
+
+      <h2 class="text-xl font-black font-orbitron gold-gradient-text uppercase mb-2">
+        VOTE LOCKED IN
+      </h2>
+
+      <!-- Display Selected Option Card -->
+      <div class="w-full bg-slate-950/80 border-2 border-yellow-500/50 rounded-2xl p-4 my-3 shadow-xl">
+        <div class="text-xs text-slate-400 font-mono uppercase tracking-wider mb-2">Your Answer</div>
+        <div class="flex items-center justify-center space-x-3.5">
+          <div id="votedOptionBadge" class="w-12 h-12 rounded-xl bg-gradient-to-br from-yellow-400 to-amber-600 border border-yellow-200 flex items-center justify-center text-slate-950 font-black font-orbitron text-2xl shadow flex-shrink-0">
+            A
+          </div>
+          <div class="text-left">
+            <div id="votedOptionText" class="text-base font-bold text-yellow-300 font-orbitron leading-tight">Gujarat</div>
+            <div class="text-xs text-emerald-400 font-semibold flex items-center mt-0.5">
+              <i class="fa-solid fa-circle-check mr-1"></i> Counted on Studio Screen
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-xs text-slate-400 px-4">
+        You can only vote once per question. Look up at the big screen to see the live audience bar graph rising!
+      </p>
+    </div>
+
+    <!-- ================= 4. POLL CLOSED WITHOUT VOTING VIEW ================= -->
+    <div id="closedView" class="w-full text-center flex flex-col items-center justify-center py-8 transition-all duration-300 hidden">
+      <div class="w-20 h-20 rounded-full bg-slate-800 border-2 border-amber-500 flex items-center justify-center mb-4">
+        <i class="fa-solid fa-ban text-amber-400 text-2xl"></i>
+      </div>
+      <h2 class="text-xl font-bold font-orbitron gold-gradient-text uppercase mb-2">
+        VOTING IS CLOSED
+      </h2>
+      <p class="text-xs text-slate-300 px-6">
+        The host has locked the audience poll. Watch the main screen for the final verdict!
+      </p>
+    </div>
+
+  </main>
+
+  <!-- Studio Footer -->
+  <footer class="w-full px-4 py-3 bg-black/60 border-t border-yellow-600/30 text-center text-xs text-slate-400 font-mono">
+    <span>KBC Interactive Studio • Real-Time Audience Voting</span>
+  </footer>
+
+  <!-- Socket.io Client -->
+  <script src="/socket.io/socket.io.js"></script>
+
+  <script>
+    // ==========================================
+    // AUDIO / HAPTIC FEEDBACK
+    // ==========================================
+    function triggerHapticAndSound() {
+      if (navigator.vibrate) {
+        navigator.vibrate([50, 30, 80]);
+      }
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        const ctx = new AudioContext();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(440, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.1);
+
+        gain.gain.setValueAtTime(0.3, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.12);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.start();
+        osc.stop(ctx.currentTime + 0.13);
+      } catch (e) {}
+    }
+
+    // ==========================================
+    // UI ELEMENTS & STATE
+    // ==========================================
+    const socket = io();
+
+    const waitingView = document.getElementById('waitingView');
+    const activeView = document.getElementById('activeView');
+    const votedView = document.getElementById('votedView');
+    const closedView = document.getElementById('closedView');
+
+    const waitingQuestionText = document.getElementById('waitingQuestionText');
+    const activeQuestionText = document.getElementById('activeQuestionText');
+
+    const votedOptionBadge = document.getElementById('votedOptionBadge');
+    const votedOptionText = document.getElementById('votedOptionText');
+
+    const connDot = document.getElementById('connDot');
+    const connText = document.getElementById('connText');
+
+    const voteButtons = document.querySelectorAll('.vote-btn');
+
+    let currentPollId = null;
+    let hasVotedInCurrentRound = false;
+    let selectedOption = null;
+    let currentOptionsData = { A: 'Option A', B: 'Option B', C: 'Option C', D: 'Option D' };
+
+    function showView(viewName) {
+      waitingView.classList.add('hidden');
+      activeView.classList.add('hidden');
+      votedView.classList.add('hidden');
+      closedView.classList.add('hidden');
+
+      if (viewName === 'waiting') waitingView.classList.remove('hidden');
+      if (viewName === 'active') activeView.classList.remove('hidden');
+      if (viewName === 'voted') votedView.classList.remove('hidden');
+      if (viewName === 'closed') closedView.classList.remove('hidden');
+    }
+
+    function syncState(state) {
+      const { isOpen, pollId, question, options: optTexts } = state;
+
+      // Update Question Text
+      if (question) {
+        waitingQuestionText.innerText = question;
+        activeQuestionText.innerText = question;
+      }
+
+      // Update Option texts on buttons
+      if (optTexts) {
+        currentOptionsData = optTexts;
+        ['A', 'B', 'C', 'D'].forEach(opt => {
+          const el = document.getElementById(`audienceOptText-${opt}`);
+          if (el && optTexts[opt]) {
+            el.innerText = optTexts[opt];
+          }
+        });
+      }
+
+      // Detect if host started a new poll or reset
+      if (currentPollId !== pollId) {
+        currentPollId = pollId;
+        hasVotedInCurrentRound = false;
+        selectedOption = null;
+        // Re-enable buttons for the new poll
+        voteButtons.forEach(btn => {
+          btn.disabled = false;
+          btn.classList.remove('opacity-50', 'voted-lock', 'cursor-not-allowed');
+        });
+      }
+
+      // Check current display state
+      if (hasVotedInCurrentRound) {
+        showView('voted');
+        return;
+      }
+
+      if (isOpen) {
+        showView('active');
+      } else {
+        if (state.totalVotes > 0) {
+          showView('closed');
+        } else {
+          showView('waiting');
+        }
+      }
+    }
+
+    // ==========================================
+    // SOCKET LISTENERS
+    // ==========================================
+    socket.on('connect', () => {
+      connDot.className = 'w-2 h-2 rounded-full bg-emerald-400';
+      connText.innerText = 'CONNECTED';
+      connText.className = 'font-mono text-[11px] text-emerald-300';
+    });
+
+    socket.on('disconnect', () => {
+      connDot.className = 'w-2 h-2 rounded-full bg-rose-500';
+      connText.innerText = 'OFFLINE';
+      connText.className = 'font-mono text-[11px] text-rose-300';
+    });
+
+    socket.on('pollState', (state) => {
+      syncState(state);
+    });
+
+    socket.on('pollUpdated', (data) => {
+      syncState(data);
+    });
+
+    // Confirmation from server that vote was counted
+    socket.on('voteConfirmed', (data) => {
+      hasVotedInCurrentRound = true;
+      selectedOption = data.option;
+      votedOptionBadge.innerText = data.option;
+      const optLabel = currentOptionsData[data.option] || `OPTION ${data.option}`;
+      votedOptionText.innerText = `OPTION ${data.option}: ${optLabel}`;
+      showView('voted');
+    });
+
+    socket.on('voteError', (err) => {
+      alert(err.message || 'Voting error');
+      if (!hasVotedInCurrentRound) {
+        voteButtons.forEach(btn => {
+          btn.disabled = false;
+          btn.classList.remove('opacity-50', 'cursor-not-allowed');
+        });
+      }
+    });
+
+    // ==========================================
+    // VOTE CLICK HANDLER
+    // ==========================================
+    voteButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const option = button.getAttribute('data-option');
+        if (!option || hasVotedInCurrentRound) return;
+
+        triggerHapticAndSound();
+        hasVotedInCurrentRound = true;
+        selectedOption = option;
+
+        voteButtons.forEach(btn => {
+          btn.disabled = true;
+          if (btn === button) {
+            btn.classList.add('voted-lock');
+          } else {
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
+          }
+        });
+
+        votedOptionBadge.innerText = option;
+        const optLabel = currentOptionsData[option] || `OPTION ${option}`;
+        votedOptionText.innerText = `OPTION ${option}: ${optLabel}`;
+
+        socket.emit('castVote', option);
+
+        setTimeout(() => {
+          showView('voted');
+        }, 300);
+      });
+    });
+  </script>
+</body>
+</html>

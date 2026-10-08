@@ -1,0 +1,28 @@
+{
+  "name": "kbc-audience-poll",
+  "version": "1.0.0",
+  "description": "Production-ready real-time Audience Poll web application inspired by KBC 'Ask the Audience' lifeline",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node test-e2e.js"
+  },
+  "keywords": [
+    "kbc",
+    "audience-poll",
+    "socket.io",
+    "express",
+    "realtime"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "express": "^4.19.2",
+    "socket.io": "^4.7.5"
+  },
+  "devDependencies": {
+    "socket.io-client": "^4.8.4"
+  }
+}

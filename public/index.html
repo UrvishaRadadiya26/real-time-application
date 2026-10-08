@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KBC 'Ask the Audience' Real-Time Polling System</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Custom KBC Theme -->
+  <link rel="stylesheet" href="/css/kbc-theme.css">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="kbc-bg-radial min-h-screen flex flex-col justify-between text-white select-none">
+  <!-- Spotlight Effect -->
+  <div class="kbc-spotlight"></div>
+
+  <!-- Header -->
+  <header class="w-full px-6 py-5 border-b border-yellow-600/30 bg-black/40 backdrop-blur-md flex items-center justify-between">
+    <div class="flex items-center space-x-3">
+      <div class="w-10 h-10 rounded-full border border-yellow-400 bg-blue-950 flex items-center justify-center shadow-lg shadow-yellow-500/20">
+        <i class="fa-solid fa-trophy text-yellow-400 text-base"></i>
+      </div>
+      <div>
+        <div class="text-[10px] tracking-widest uppercase text-yellow-300 font-bold">KAUN BANEGA CROREPATI</div>
+        <h1 class="text-lg font-bold tracking-wider gold-gradient-text uppercase font-orbitron">
+          AUDIENCE POLL SYSTEM
+        </h1>
+      </div>
+    </div>
+    <div class="flex items-center space-x-2 text-xs font-mono text-emerald-400 bg-emerald-950/60 border border-emerald-500/30 px-3 py-1 rounded-full">
+      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+      <span>SERVER ONLINE</span>
+    </div>
+  </header>
+
+  <!-- Hero Portal -->
+  <main class="flex-1 flex flex-col items-center justify-center px-4 py-12 max-w-4xl mx-auto w-full relative z-10 text-center">
+
+    <div class="mb-4 inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-blue-950/80 border border-yellow-500/40 text-xs font-semibold text-yellow-300 uppercase tracking-widest">
+      <i class="fa-solid fa-tv text-yellow-400"></i>
+      <span>Interactive Studio Lifeline</span>
+    </div>
+
+    <h2 class="text-3xl md:text-5xl font-black font-orbitron gold-gradient-text uppercase mb-4 tracking-wider">
+      ASK THE AUDIENCE
+    </h2>
+    <p class="text-base text-slate-300 max-w-xl mx-auto mb-10 leading-relaxed">
+      Welcome to the real-time Kaun Banega Crorepati lifeline portal. Select your role below to launch the display screen or vote.
+    </p>
+
+    <!-- Role Selection Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-2xl text-left">
+
+      <!-- Host / Big Screen Card -->
+      <a href="/host" class="group bg-slate-950/80 border-2 border-yellow-500/40 hover:border-yellow-400 rounded-2xl p-6 shadow-xl hover:shadow-yellow-500/20 transition-all duration-300 transform hover:-translate-y-1 block relative overflow-hidden">
+        <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-yellow-500/10 rounded-full group-hover:scale-150 transition duration-500"></div>
+        <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-blue-900 to-indigo-950 border border-yellow-400 flex items-center justify-center text-yellow-400 text-2xl mb-4 group-hover:scale-110 transition shadow-md">
+          <i class="fa-solid fa-chart-simple"></i>
+        </div>
+        <div class="inline-flex items-center space-x-1.5 text-xs text-yellow-400/80 mb-2 font-mono">
+          <i class="fa-solid fa-lock text-yellow-400"></i>
+          <span>PIN Protected • Host Only</span>
+        </div>
+        <h3 class="text-xl font-black font-orbitron gold-gradient-text uppercase mb-2">
+          Host / Main Screen
+        </h3>
+        <p class="text-xs text-slate-300 leading-relaxed mb-4">
+          For the big projector or TV. Displays smooth animated vertical bars, floating percentages, live sounds, and control buttons.
+        </p>
+        <div class="inline-flex items-center space-x-2 text-xs font-bold text-yellow-300 uppercase font-orbitron group-hover:text-yellow-200">
+          <span>Unlock Host Console</span>
+          <i class="fa-solid fa-lock text-xs transform group-hover:translate-x-1 transition"></i>
+        </div>
+      </a>
+
+      <!-- Audience Mobile Pad Card -->
+      <a href="/audience" class="group bg-slate-950/80 border-2 border-yellow-500/40 hover:border-yellow-400 rounded-2xl p-6 shadow-xl hover:shadow-yellow-500/20 transition-all duration-300 transform hover:-translate-y-1 block relative overflow-hidden">
+        <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-yellow-500/10 rounded-full group-hover:scale-150 transition duration-500"></div>
+        <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-emerald-900 to-teal-950 border border-emerald-400 flex items-center justify-center text-emerald-400 text-2xl mb-4 group-hover:scale-110 transition shadow-md">
+          <i class="fa-solid fa-mobile-screen-button"></i>
+        </div>
+        <h3 class="text-xl font-black font-orbitron text-emerald-300 uppercase mb-2">
+          Audience Voting Pad
+        </h3>
+        <p class="text-xs text-slate-300 leading-relaxed mb-4">
+          Mobile-first touch screen for audience members. Click large options A, B, C, or D. Supports single-vote lock, haptics, and instant confirmation.
+        </p>
+        <div class="inline-flex items-center space-x-2 text-xs font-bold text-emerald-400 uppercase font-orbitron group-hover:text-emerald-300">
+          <span>Open Voting Pad</span>
+          <i class="fa-solid fa-arrow-right text-xs transform group-hover:translate-x-1 transition"></i>
+        </div>
+      </a>
+
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="w-full px-6 py-4 bg-black/60 border-t border-yellow-600/30 text-center text-xs text-slate-400 font-mono">
+    <span>KBC Lifeline System • Powered by Node.js, Express & Socket.io</span>
+  </footer>
+</body>
+</html>

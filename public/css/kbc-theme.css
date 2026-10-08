@@ -1,0 +1,225 @@
+/* KBC "Ask The Audience" Lifeline - Custom Styles & Effects */
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&display=swap');
+
+:root {
+  --kbc-blue-darkest: #030712;
+  --kbc-blue-deep: #071233;
+  --kbc-blue-mid: #0d1e56;
+  --kbc-blue-bright: #1a3a99;
+  --kbc-cyan-glow: #00d2ff;
+  --kbc-gold-1: #d4af37;
+  --kbc-gold-2: #fcf6ba;
+  --kbc-gold-3: #aa771c;
+  --kbc-gold-4: #805a10;
+}
+
+body {
+  font-family: 'Rajdhani', sans-serif;
+  background-color: var(--kbc-blue-darkest);
+  color: #ffffff;
+  overflow-x: hidden;
+}
+
+.font-orbitron {
+  font-family: 'Orbitron', monospace;
+}
+
+/* KBC Studio Radial Background */
+.kbc-bg-radial {
+  background: radial-gradient(circle at 50% 35%, #142867 0%, #0a163e 40%, #050b20 75%, #02040c 100%);
+  background-attachment: fixed;
+}
+
+/* KBC Studio Spotlight Cone Effect */
+.kbc-spotlight {
+  position: absolute;
+  top: -20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 800px;
+  background: radial-gradient(ellipse at top, rgba(0, 180, 255, 0.15) 0%, rgba(20, 40, 103, 0.05) 50%, transparent 80%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Concentric Studio Radar Rings */
+.kbc-radar-ring {
+  border-radius: 50%;
+  border: 1px solid rgba(212, 175, 55, 0.12);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+/* Gold Metallic Borders & Gradients */
+.gold-gradient-border {
+  border: 2px solid;
+  border-image: linear-gradient(135deg, #d4af37, #fcf6ba 50%, #aa771c) 1;
+}
+
+.gold-gradient-text {
+  background: linear-gradient(180deg, #fff7c2 0%, #f1c40f 45%, #b78716 75%, #7a5405 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gold-badge {
+  background: linear-gradient(135deg, #1b1606 0%, #3d2f09 50%, #1b1606 100%);
+  border: 1.5px solid #d4af37;
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.35), inset 0 0 10px rgba(212, 175, 55, 0.2);
+}
+
+/* Beveled KBC Option Button (Classic Diamond-Cut Hexagon) */
+.kbc-beveled-box {
+  position: relative;
+  clip-path: polygon(15px 0%, calc(100% - 15px) 0%, 100% 50%, calc(100% - 15px) 100%, 15px 100%, 0% 50%);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.kbc-beveled-border {
+  filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.4));
+}
+
+/* Smooth Rising Animated Vertical Bar */
+.kbc-bar-track {
+  position: relative;
+  background: rgba(4, 12, 34, 0.85);
+  border: 1.5px solid rgba(0, 210, 255, 0.3);
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.9), 0 0 15px rgba(0, 100, 255, 0.15);
+  border-radius: 6px;
+  overflow: visible;
+}
+
+.kbc-bar-fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  border-radius: 4px 4px 0 0;
+  background: linear-gradient(180deg, #00f0ff 0%, #0088ff 40%, #1134aa 85%, #0d1e56 100%);
+  box-shadow: 0 0 20px rgba(0, 210, 255, 0.6), inset 0 0 10px rgba(255, 255, 255, 0.4);
+  /* Smooth CSS transition for rising bar */
+  transition: height 0.65s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Bar LED Grid Overlay */
+.kbc-led-grid {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.4) 0px,
+    rgba(0, 0, 0, 0.4) 2px,
+    transparent 2px,
+    transparent 8px
+  );
+  pointer-events: none;
+  opacity: 0.65;
+}
+
+/* Bar Floating Percentage Label */
+.kbc-pct-floater {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: bottom 0.65s cubic-bezier(0.25, 1, 0.5, 1);
+  text-shadow: 0 0 10px rgba(0, 210, 255, 0.8), 0 0 20px rgba(0, 210, 255, 0.5);
+  white-space: nowrap;
+}
+
+/* Glowing Pulsing Status Light */
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 12px rgba(34, 197, 94, 0.8);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.08);
+    box-shadow: 0 0 24px rgba(34, 197, 94, 1);
+  }
+}
+
+.pulse-active {
+  animation: pulse-glow 1.8s infinite ease-in-out;
+}
+
+@keyframes pulse-radar {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+}
+
+.radar-anim {
+  animation: pulse-radar 3s infinite ease-in-out;
+}
+
+/* Option Hexagon Badge */
+.hex-badge {
+  width: 52px;
+  height: 52px;
+  background: linear-gradient(135deg, #1e1b10 0%, #3e3210 50%, #15120a 100%);
+  border: 2px solid #d4af37;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 14px rgba(212, 175, 55, 0.4), inset 0 0 8px rgba(212, 175, 55, 0.3);
+}
+
+/* Audience Mobile Touch Button Effects */
+.touch-btn-kbc {
+  background: linear-gradient(180deg, #0e1e4a 0%, #060e24 100%);
+  border: 1.5px solid rgba(212, 175, 55, 0.5);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  transition: all 0.15s ease-out;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.touch-btn-kbc:hover:not(:disabled) {
+  border-color: #d4af37;
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.5), inset 0 0 15px rgba(212, 175, 55, 0.2);
+  transform: translateY(-2px);
+}
+
+.touch-btn-kbc:active:not(:disabled) {
+  transform: translateY(1px) scale(0.98);
+  background: linear-gradient(180deg, #1a3275 0%, #0a1638 100%);
+}
+
+.touch-btn-kbc.voted-lock {
+  background: linear-gradient(180deg, #0f3d20 0%, #051a0d 100%) !important;
+  border-color: #22c55e !important;
+  box-shadow: 0 0 25px rgba(34, 197, 94, 0.6), inset 0 0 15px rgba(34, 197, 94, 0.4) !important;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #030712;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e3a8a;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #d4af37;
+}
